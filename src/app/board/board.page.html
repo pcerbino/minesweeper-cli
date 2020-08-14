@@ -1,0 +1,111 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>The game</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<div id="divBoard" style="margin-top:40px" >
+		
+		<ion-grid >
+			<ion-row>
+				<ion-col>
+
+					<div *ngFor="let col of board; let first = first; let last = last;">
+
+						<div *ngIf="first">
+							
+							<ion-grid size="auto" style="width: max-content;">
+								<ion-row>
+									<ion-col size="auto" style="height:15px">
+										<img src="assets/bordertl.gif" >
+										
+										<span *ngFor="let in of board">
+											<img src="assets/bordertb.gif" height="10" width="16" >
+										</span>
+										
+										<img src="assets/bordertr.gif" />
+									</ion-col>
+								</ion-row>
+								<ion-row>
+									<ion-col>
+										<ion-grid>
+											<ion-row>
+												<ion-col size="4">
+													<img src="assets/borderlr.gif" height="29" width="10" >
+													<a onclick="return bombCountClick()">
+														<img src="assets/time0.gif" width="13" height="23" id="bomb100s" >
+														<img src="assets/time1.gif" width="13" height="23" id="bomb10s" >
+														<img src="assets/time0.gif" width="13" height="23" id="bomb1s" />
+													</a>
+												</ion-col>
+												<ion-col size="4" class="ion-text-center">
+													<a>
+														<img src="{{happyFace}}" name="face" hspace="12" (click)="startGame()"/>
+													</a>
+												</ion-col>
+												<ion-col size="4" class="ion-text-right">
+													<img src="assets/time0.gif" width="13" height="23" id="time100s" >
+													<img src="assets/time0.gif" width="13" height="23" id="time10s" >
+													<img src="assets/time0.gif" width="13" height="23" id="time1s" >
+													<img src="assets/borderlr.gif" height="29" width="10" />
+												</ion-col>
+											</ion-row>
+										</ion-grid>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+							
+							<ion-grid size="auto" style="width: max-content; margin-top: -8px;">
+								<ion-row>
+									<ion-col>
+										<img src="assets/borderjointl.gif" >
+										<span *ngFor="let in of board">
+											<img src="assets/bordertb.gif" height="10" width="16" />
+										</span>
+										<img src="assets/borderjointr.gif" />
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+
+						</div>
+
+						<ion-grid size="auto" style="width: max-content; margin-top: -3px;">
+							<ion-row>
+								<ion-col>
+
+									<img src="assets/borderlr.gif" height="16" width="10" />
+									<span *ngFor="let row of col">
+										<a>
+											<img *ngIf="row.content.value == 'empty'" src="assets/blank.gif" (contextmenu)="flag(row.x, row.y)" (click)="display(row.x, row.y)"/>
+											<img *ngIf="row.content.value == 'mine'" src="assets/bombrevealed.gif" (click)="ohh()"/>
+											<img *ngIf="row.content.value == 'number'" src="assets/open{{row.number}}.gif" (click)="ohh()" /> 
+											<img *ngIf="row.content.value == 'flag'" src="assets/bombflagged.gif" (click)="ohh()" /> 
+										</a>
+									</span>
+									<img src="assets/borderlr.gif" height="16" width="10" >
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</div>
+				
+					<ion-grid size="auto" style="width: max-content; margin-top: -8px;">
+						<ion-row>
+							<ion-col>
+							
+								<img src="assets/borderbl.gif" >
+								
+								<span *ngFor="let in of board">
+									<img src="assets/bordertb.gif" height="10" width="16" >
+								</span>
+
+								<img src="assets/borderbr.gif" />
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+						
+	</div>
+</ion-content>
