@@ -1,5 +1,7 @@
 {
   "name": "Minesweeper",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

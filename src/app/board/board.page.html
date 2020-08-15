@@ -10,7 +10,7 @@
 			<ion-row>
 				<ion-col>
 
-					<div *ngFor="let col of board; let first = first; let last = last;">
+					<div *ngFor="let row of board; let first = first; let last = last;">
 
 						<div *ngIf="first">
 							
@@ -19,7 +19,7 @@
 									<ion-col size="auto" style="height:15px">
 										<img src="assets/bordertl.gif" >
 										
-										<span *ngFor="let in of board">
+										<span *ngFor="let in of board[0]">
 											<img src="assets/bordertb.gif" height="10" width="16" >
 										</span>
 										
@@ -59,7 +59,7 @@
 								<ion-row>
 									<ion-col>
 										<img src="assets/borderjointl.gif" >
-										<span *ngFor="let in of board">
+										<span *ngFor="let in of board[0]">
 											<img src="assets/bordertb.gif" height="10" width="16" />
 										</span>
 										<img src="assets/borderjointr.gif" />
@@ -74,12 +74,15 @@
 								<ion-col>
 
 									<img src="assets/borderlr.gif" height="16" width="10" />
-									<span *ngFor="let row of col">
+									<span *ngFor="let col of row">
 										<a>
-											<img *ngIf="row.content.value == 'empty'" src="assets/blank.gif" (contextmenu)="flag(row.x, row.y)" (click)="display(row.x, row.y)"/>
-											<img *ngIf="row.content.value == 'mine'" src="assets/bombrevealed.gif" (click)="ohh()"/>
-											<img *ngIf="row.content.value == 'number'" src="assets/open{{row.number}}.gif" (click)="ohh()" /> 
-											<img *ngIf="row.content.value == 'flag'" src="assets/bombflagged.gif" (click)="ohh()" /> 
+											<img *ngIf="col.status.value == 'hidden'" src="assets/blank.gif" (contextmenu)="flag(col.x, col.y)" (click)="display(col.x, col.y)"/>
+											
+											<img *ngIf="col.status.value == 'visible' && col.content.value == 'empty'" src="assets/open0.gif" (contextmenu)="flag(col.x, col.y)" (click)="display(col.x, col.y)"/>
+
+											<img *ngIf="col.status.value == 'visible' && col.content.value == 'mine'" src="assets/bombrevealed.gif" (click)="ohh()"/>
+											<img *ngIf="col.status.value == 'visible' && col.content.value == 'number'" src="assets/open{{col.number}}.gif" (click)="ohh()" /> 
+											<img *ngIf="col.status.value == 'visible' && col.content.value == 'flag'" src="assets/bombflagged.gif" (click)="ohh()" /> 
 										</a>
 									</span>
 									<img src="assets/borderlr.gif" height="16" width="10" >
@@ -88,13 +91,13 @@
 						</ion-grid>
 					</div>
 				
-					<ion-grid size="auto" style="width: max-content; margin-top: -8px;">
+					<ion-grid *ngIf="board" size="auto" style="width: max-content; margin-top: -8px;">
 						<ion-row>
 							<ion-col>
 							
 								<img src="assets/borderbl.gif" >
 								
-								<span *ngFor="let in of board">
+								<span *ngFor="let in of board[0]">
 									<img src="assets/bordertb.gif" height="10" width="16" >
 								</span>
 

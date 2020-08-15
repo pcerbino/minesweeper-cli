@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MinesweeperApiService } from '../services/minesweeper-api.service';
 import { Observable } from 'rxjs';
-
+import { MenuController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
 	selector: 'app-board',
@@ -15,7 +16,9 @@ export class BoardPage implements OnInit {
 	clickCount: number = 0;
 	gameId: string = null;
 
-	constructor(private minesweeperApiService: MinesweeperApiService) { }
+	constructor(private minesweeperApiService: MinesweeperApiService, private menu: MenuController, private authService: AuthService) { 
+		this.menu.enable(true);
+	}
 
 	ngOnInit() {
 		this.startGame();
