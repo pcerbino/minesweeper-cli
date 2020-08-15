@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { MenuController } from '@ionic/angular';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -41,6 +40,7 @@ export class LoginPage implements OnInit {
       },
       error => {
         console.log(error);
+        this.alertService.presentToast("Autorization error");
       },
       () => {
 

@@ -19,9 +19,14 @@ export class AuthService {
 
   login(email: String, password: String) {
 
-    return this.http.post(this.env.API_URL + 'login', {email: email, password: password}).pipe(
+    return this.http.post(this.env.API_URL + 'login', {email: email, password: password})
+    
+    .pipe(
 
-      tap(token => {
+      tap((token:any) => {
+
+        this.token = token.token;
+        this.isLoggedIn = true;
 
         this.storage.setItem('token', token).then(
           () => {
@@ -30,12 +35,19 @@ export class AuthService {
           error => console.error('Error storing item', error)
         );
 
-        this.token = token;
-        this.isLoggedIn = true;
+        
 
-        return token;
+        return this.token;
       }),
     );
+    
+  }
+
+  private setSession(authResult) {
+
+      localStorage.setItem('id_token', authResult.token);
+      this.token = authResult.token;
+      this.isLoggedIn = true;      
   }
 
   register(name: String, email: String, password: String) {
@@ -49,25 +61,11 @@ export class AuthService {
       this.isLoggedIn = false;
       delete this.token;
       return true;
-    /*
-    const headers = new HttpHeaders({
-      'Authorization': this.token["token_type"]+" "+this.token["access_token"]
-    });
-  
-    return this.http.get(this.env.API_URL + 'logout', { headers: headers }).pipe(
-      
-      tap(data => {
-        this.storage.remove("token");
-        this.isLoggedIn = false;
-        delete this.token;
-        return data;
-      })
-    )*/
   }
 
   user() {
   
-    const headers = new HttpHeaders({'Authorization': this.token["token_type"]+" "+this.token["access_token"] });
+    const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.token});
     
     return this.http.get<User>(this.env.API_URL + 'user', { headers: headers }).pipe(
       tap(user => {

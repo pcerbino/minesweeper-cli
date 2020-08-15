@@ -1,6 +1,7 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title>The game</ion-title>
+		<ion-title *ngIf="user">Hi {{ user["name"]  }}</ion-title>
+		<ion-title *ngIf="!user">Hi Guest</ion-title>
 	</ion-toolbar>
 </ion-header>
 <ion-content>
@@ -26,7 +27,7 @@
 										<img src="assets/bordertr.gif" />
 									</ion-col>
 								</ion-row>
-								<ion-row>
+								<ion-row style="background: #bdbdbd;">
 									<ion-col>
 										<ion-grid>
 											<ion-row>
@@ -82,7 +83,7 @@
 
 											<img *ngIf="col.status.value == 'visible' && col.content.value == 'mine'" src="assets/bombrevealed.gif" (click)="ohh()"/>
 											<img *ngIf="col.status.value == 'visible' && col.content.value == 'number'" src="assets/open{{col.number}}.gif" (click)="ohh()" /> 
-											<img *ngIf="col.status.value == 'visible' && col.content.value == 'flag'" src="assets/bombflagged.gif" (click)="ohh()" /> 
+											<img *ngIf="col.status.value == 'visible' && col.content.value == 'flag'" src="assets/bombflagged.gif" (click)="ohh()" (contextmenu)="flag(col.x, col.y)"/> 
 										</a>
 									</span>
 									<img src="assets/borderlr.gif" height="16" width="10" >

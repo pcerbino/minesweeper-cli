@@ -3,6 +3,8 @@ import { MinesweeperApiService } from '../services/minesweeper-api.service';
 import { Observable } from 'rxjs';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
+
 
 @Component({
 	selector: 'app-board',
@@ -15,6 +17,7 @@ export class BoardPage implements OnInit {
 	happyFace: string = 'assets/facesmile.gif';
 	clickCount: number = 0;
 	gameId: string = null;
+	user: User;
 
 	constructor(private minesweeperApiService: MinesweeperApiService, private menu: MenuController, private authService: AuthService) { 
 		this.menu.enable(true);
@@ -32,16 +35,20 @@ export class BoardPage implements OnInit {
 	}
 
 	flag(x, y){
-
-		console.log(this.board)
 		
 		this.minesweeperApiService.putFlag(this.gameId, x,y).subscribe((results:any) => {
-			console.log(this.board)
 			this.board = results.board;
 		});
-
 		return false;
 	}
+
+	ionViewWillEnter() {
+		this.authService.user().subscribe(
+			(user:any) => {
+			this.user = user.user;
+		}
+	);
+}
 
 	display(x, y) {
 		this.minesweeperApiService.displaySquare(this.gameId, x,y).subscribe((results:any) => {

@@ -13,22 +13,34 @@ export class MinesweeperApiService {
 
 	startGame() {
 
-		let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem("token")) });
+		let token = JSON.parse(localStorage.getItem("token"));
+		
+		token = JSON.parse(token)
+
+		let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token.token});
 
 		return this.http.post(this.env.API_URL + 'game', {rows: 10, cols:20, mines: 10}, { headers: headers });
 	}
 
 	putFlag(gameId, x, y) {
 
-		let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("token") });
+		let token = JSON.parse(localStorage.getItem("token"));
+		
+		token = JSON.parse(token)
 
-		return this.http.put(this.env.API_URL + 'game/${gameId}/setFlag', {x:x, y:y}, { headers: headers });
+		let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token.token});
+
+		return this.http.put(this.env.API_URL + 'game/'+gameId+'/setFlag', {x:x, y:y}, { headers: headers });
 	}
 
 	displaySquare(gameId, x,y) {
 
-		let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("token") });
+		let token = JSON.parse(localStorage.getItem("token"));
+		
+		token = JSON.parse(token)
 
-		return this.http.put(this.env.API_URL + 'game/${gameId}/setSquare', {x:x, y:y}, { headers: headers });
+		let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token.token});
+
+		return this.http.put(this.env.API_URL + 'game/'+gameId+'/setSquare', {x:x, y:y}, { headers: headers });
 	}
 }
