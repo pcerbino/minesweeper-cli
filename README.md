@@ -7,6 +7,7 @@ Minesweepr classic game developed using [Ionic Framework v4](https://ionicframew
 - Clone this repository.
 - Install **Ionic Cli**, instructions [here](https://ionicframework.com/docs/intro/cli)
 - Install **Cordova** ```$ npm i -g cordova```
+- Replace the API route in ```src/services/env.service.ts```
 - and finally you are ready to run the webapp on your local: ```$ ionic cordova run browser```
 
 
