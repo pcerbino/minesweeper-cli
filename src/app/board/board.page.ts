@@ -80,7 +80,6 @@ export class BoardPage implements OnInit {
 	}
 
 	ionViewWillEnter() {
-		console.log('this level' + this.level);
 		this.userRefresh();
 	}
 
@@ -93,7 +92,7 @@ export class BoardPage implements OnInit {
 			}
 
 			if(results.status == 'winned'){
-				this.happyFace = 'assets/facesmile.gif';
+				this.happyFace = 'assets/facewin.gif';
 			}
 
 		});
