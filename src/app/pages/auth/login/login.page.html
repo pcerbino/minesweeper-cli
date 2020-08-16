@@ -1,9 +1,9 @@
-<ion-content text-center>
+<ion-content>
   <form  #form="ngForm" (ngSubmit)="login(form)">
     <ion-grid>
       <ion-row color="primary" >
-        <ion-col offset="3" size="6" >
-          <div text-center>
+        <ion-col offset="2" size="8" >
+          <div class="ion-text-center">
             <h3>Login</h3>
           </div>
           <div padding>
@@ -20,9 +20,9 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col offset="4" size="4" class="text-center">
-            <p text-center>Don't have a account?</p>
-            <ion-button expand="block" color="primary" (click)="register()">Register</ion-button>
+        <ion-col offset="2" size="8" class="ion-text-center">
+            <p class="ion-text-center">Don't have a account?</p>
+            <ion-button expand="block" color="secondary" (click)="register()">Register</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -11,15 +11,15 @@ export class MinesweeperApiService {
 
 	constructor(private http: HttpClient, private env: EnvService, private storage: NativeStorage) { }
 
-	startGame() {
+	startGame(cols, rows, mines) {
 
 		let token = JSON.parse(localStorage.getItem("token"));
 		
-		token = JSON.parse(token)
+		token = JSON.parse(token);  
 
 		let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + token.token});
 
-		return this.http.post(this.env.API_URL + 'game', {rows: 10, cols:20, mines: 10}, { headers: headers });
+		return this.http.post(this.env.API_URL + 'game', {rows: rows, cols:cols, mines: mines}, { headers: headers });
 	}
 
 	putFlag(gameId, x, y) {

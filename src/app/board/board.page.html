@@ -1,7 +1,11 @@
 <ion-header>
 	<ion-toolbar>
-		<ion-title *ngIf="user">Hi {{ user["name"]  }}</ion-title>
+		<ion-title *ngIf="user">Hello {{ user["name"]  }}</ion-title>
 		<ion-title *ngIf="!user">Hi Guest</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+
 	</ion-toolbar>
 </ion-header>
 <ion-content>
@@ -10,6 +14,23 @@
 		<ion-grid >
 			<ion-row>
 				<ion-col>
+					<ion-grid size="auto" style="width: max-content;">
+						<ion-row>
+							<ion-col size="auto">
+								<ion-item>
+									<ion-label>Select difficult</ion-label>
+									<ion-select [(ngModel)]="level" placeholder="Select One" (ionChange)="changeLevel()">
+										<ion-select-option value="1">Easy</ion-select-option>
+										<ion-select-option value="2">Medium</ion-select-option>
+										<ion-select-option value="3">Advanced</ion-select-option>
+									</ion-select>
+								</ion-item>
+								<br/>
+							</ion-col>							
+						</ion-row>
+					</ion-grid>
+
+
 
 					<div *ngFor="let row of board; let first = first; let last = last;">
 
@@ -82,8 +103,12 @@
 											<img *ngIf="col.status.value == 'visible' && col.content.value == 'empty'" src="assets/open0.gif" (contextmenu)="flag(col.x, col.y)" (click)="display(col.x, col.y)"/>
 
 											<img *ngIf="col.status.value == 'visible' && col.content.value == 'mine'" src="assets/bombrevealed.gif" (click)="ohh()"/>
+											
 											<img *ngIf="col.status.value == 'visible' && col.content.value == 'number'" src="assets/open{{col.number}}.gif" (click)="ohh()" /> 
+											
 											<img *ngIf="col.status.value == 'visible' && col.content.value == 'flag'" src="assets/bombflagged.gif" (click)="ohh()" (contextmenu)="flag(col.x, col.y)"/> 
+
+											<img *ngIf="col.status.value == 'visible' && col.content.value == 'death'" src="assets/bombdeath.gif" (click)="ohh()"/>
 										</a>
 									</span>
 									<img src="assets/borderlr.gif" height="16" width="10" >
@@ -112,4 +137,56 @@
 		</ion-grid>
 						
 	</div>
+
+	<ion-grid style="margin-top:20px">
+		<ion-row>
+			<ion-col size="6">
+				<ion-card>
+					<ion-card-header>
+						<ion-card-subtitle>Games Played</ion-card-subtitle>
+						<ion-card-title class="ion-text-center">{{played}}</ion-card-title>
+					</ion-card-header>
+				</ion-card>
+			</ion-col>
+			<ion-col size="6">
+				<ion-card>
+					<ion-card-header>
+						<ion-card-subtitle>Winned</ion-card-subtitle>
+						<ion-card-title class="ion-text-center">{{winned}}</ion-card-title>
+					</ion-card-header>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col size="6">
+				<ion-card>
+					<ion-card-header>
+						<ion-card-subtitle>Loosed</ion-card-subtitle>
+						<ion-card-title class="ion-text-center">{{loosed}}</ion-card-title>
+					</ion-card-header>
+				</ion-card>
+			</ion-col>
+			<ion-col size="6">
+				<ion-card>
+					<ion-card-header>
+						<ion-card-subtitle>Abandoned</ion-card-subtitle>
+						<ion-card-title class="ion-text-center">{{abandoned}}</ion-card-title>
+					</ion-card-header>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col size="6">
+				<ion-card>
+					<ion-card-header>
+						<ion-card-subtitle>In Progress</ion-card-subtitle>
+						<ion-card-title class="ion-text-center">{{inProgress}}</ion-card-title>
+					</ion-card-header>
+				</ion-card>
+			</ion-col>
+			
+		</ion-row>
+	</ion-grid>
+
+
 </ion-content>

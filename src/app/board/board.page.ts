@@ -18,6 +18,12 @@ export class BoardPage implements OnInit {
 	clickCount: number = 0;
 	gameId: string = null;
 	user: User;
+	played: number = 0;
+	winned: number = 0;
+	loosed: number = 0;
+	abandoned: number = 0;
+	inProgress: number = 0;
+	level: number = 2;
 
 	constructor(private minesweeperApiService: MinesweeperApiService, private menu: MenuController, private authService: AuthService) { 
 		this.menu.enable(true);
@@ -28,40 +34,87 @@ export class BoardPage implements OnInit {
 	}
 
 	startGame() {
-		this.minesweeperApiService.startGame().subscribe((results:any) => {
+		
+		this.happyFace = 'assets/facesmile.gif';
+
+		let cols = 20;
+		let rows = 10;
+		let mines = 20;
+
+		if(this.level == 1){
+			cols = 10;
+			rows = 10;
+			mines = 10;
+		}
+		else if(this.level == 2){
+			cols = 20;
+			rows = 20;
+			mines = 55;
+		}
+		else if(this.level == 3){
+			cols = 20;
+			rows = 35;
+			mines = 90;
+		}
+
+		console.log("start game in level " + this.level);
+
+		this.minesweeperApiService.startGame(cols, rows, mines).subscribe((results:any) => {
+			this.userRefresh();
 			this.board = results.board;
 			this.gameId = results.gameId;
 		});
 	}
 
+	changeLevel(){
+		this.startGame();
+	}
+
 	flag(x, y){
 		
 		this.minesweeperApiService.putFlag(this.gameId, x,y).subscribe((results:any) => {
+			this.userRefresh();
 			this.board = results.board;
 		});
 		return false;
 	}
 
 	ionViewWillEnter() {
-		this.authService.user().subscribe(
-			(user:any) => {
-			this.user = user.user;
-		}
-	);
-}
+		console.log('this level' + this.level);
+		this.userRefresh();
+	}
 
 	display(x, y) {
 		this.minesweeperApiService.displaySquare(this.gameId, x,y).subscribe((results:any) => {
-			this.board = results.board;			
+			this.userRefresh();
+			this.board = results.board;	
+			if(results.status == 'loosed'){
+				this.happyFace = 'assets/facedead.gif';
+			}
+
+			if(results.status == 'winned'){
+				this.happyFace = 'assets/facesmile.gif';
+			}
+
 		});
 	}
 
 	ohh(){
-		
 		this.happyFace = 'assets/faceooh.gif';
 		setTimeout(() => { 
             this.happyFace = 'assets/facesmile.gif';
         }, 200 );
 		
+	}
+
+	userRefresh(){
+		this.authService.user().subscribe((user:any) => {
+			this.user = user.user;
+			this.winned = user.stats.winned;
+			this.loosed = user.stats.loosed;
+			this.abandoned = user.stats.abandoned;
+			this.played = user.stats.played;
+			this.inProgress = user.stats.inProgress;
+		});
 	}
 }

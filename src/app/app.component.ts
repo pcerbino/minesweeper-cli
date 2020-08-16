@@ -36,7 +36,13 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       //this.splashScreen.hide();
-      this.authService.getToken();
+      //this.authService.getToken();
+
+          this.authService.getToken().then(() => {
+            if(this.authService.isLoggedIn) {
+              this.navCtrl.navigateRoot('/board');
+            }
+          });      
     });
   }
 

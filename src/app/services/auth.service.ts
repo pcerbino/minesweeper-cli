@@ -75,13 +75,10 @@ export class AuthService {
   }
 
   getToken() {
-  
-    return this.storage.getItem('token').then(
-      
-      data => {
-      
-        this.token = data;
-      
+    
+    return this.storage.getItem('token').then(data => {
+
+        this.token = data.token;
         if(this.token != null) {
           this.isLoggedIn = true;
         } else {

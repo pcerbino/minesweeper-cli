@@ -21,11 +21,14 @@ export class LoginPage implements OnInit {
       private alertService: AlertService, 
       public menuCtrl: MenuController) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+
+  }
+
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
-  }
+  }  
   
   register() {
 
