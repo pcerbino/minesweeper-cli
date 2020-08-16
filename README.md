@@ -1,26 +1,28 @@
 # Minesweeper CLI
--------
+
 Minesweepr classic game developed using [Ionic Framework v4](https://ionicframework.com/)
 
 #### Install instructions
 
 - Clone this repository.
 - Install **Ionic Cli**, instructions [here](https://ionicframework.com/docs/intro/cli)
-- Install **Cordova** ```npm i -g cordova```
-- and finally you can run the app with ```$ ionic cordova run browser```
+- Install **Cordova** ```$ npm i -g cordova```
+- and finally you are ready to run the webapp on your local: ```$ ionic cordova run browser```
+
 
 #### Documentation
-As it is developed with **Ionic** and Angular it is ready to be compiled for Android and iOS applications.
+As it is developed with **Ionic** and Angular it is ready to be compiled for Android and iOS mobile applications.
+Test DEMO available [here](http://vps-1794423-x.dattaweb.com)
 
-#### Features
+#### Some Features
 
-- Register users and login.
-- User pesistence.
+- Users registration and login.
+- Users pesistence.
 - Some user game stats.
 - UX ready for mobile.
 
-##### My development environment.
-Tested with these tools version
+#### My development environment information.
+Tested with these versions
 ```
 $ ionic info 
 		Ionic:
@@ -35,10 +37,9 @@ $ ionic info
 ```
 
 #### TODOS
-- Clock with game time
-- Clock with flags indicator
+- Game timer
+- Flag indicator
 - Question Marks
 
 #### License
 MIT
-**Free Software, Hell Yeah!**
