@@ -74,7 +74,8 @@ export class BoardPage implements OnInit {
 		
 		this.minesweeperApiService.putFlag(this.gameId, x,y).subscribe((results:any) => {
 			this.userRefresh();
-			this.board = results.board;
+			//this.board = results.board;
+			this.renderSquares(results);
 		});
 		return false;
 	}
@@ -83,18 +84,60 @@ export class BoardPage implements OnInit {
 		this.userRefresh();
 	}
 
+	renderSquares(arr){
+
+		arr.affectedSquares.forEach(square => {
+			
+			let affectedSquare  =  document.querySelector("#sq_"+square.x+"x"+square.y);
+			let imgSrc = "assets/blank.gif"
+			let contextmenu = null;
+			let click = "ohh()";
+			
+			if (square.content.value == 'mine'){
+
+				imgSrc = "assets/bombrevealed.gif";
+
+			}else if (square.content.value == 'number'){
+
+				imgSrc = "assets/open"+square.number+".gif";
+
+			}else if (square.content.value == 'flag'){
+
+				imgSrc = "assets/bombflagged.gif";
+				contextmenu = "flag("+square.x+", "+square.y+")";
+
+
+			}else if (square.content.value == 'death'){
+				imgSrc = "assets/bombdeath.gif";
+			
+			}if (square.content.value == 'empty'){
+				imgSrc = "assets/open0.gif";
+			}
+			
+			affectedSquare.setAttribute("src", imgSrc);
+			affectedSquare.setAttribute("contextmenu", contextmenu);
+
+		});	
+
+	}
+
 	display(x, y) {
 		this.minesweeperApiService.displaySquare(this.gameId, x,y).subscribe((results:any) => {
-			this.userRefresh();
-			this.board = results.board;	
+			
+			//this.board = results.board;
+			
+			this.renderSquares(results);
+
 			if(results.status == 'loosed'){
+				this.userRefresh();
 				this.happyFace = 'assets/facedead.gif';
 			}
 
 			if(results.status == 'winned'){
+				this.userRefresh();
 				this.happyFace = 'assets/facewin.gif';
 			}
-
+ 
 		});
 	}
 

@@ -97,19 +97,9 @@
 
 									<img src="assets/borderlr.gif" height="16" width="10" />
 									<span *ngFor="let col of row">
-										<a>
-											<img *ngIf="col.status.value == 'hidden'" src="assets/blank.gif" (contextmenu)="flag(col.x, col.y)" (click)="display(col.x, col.y)"/>
-											
-											<img *ngIf="col.status.value == 'visible' && col.content.value == 'empty'" src="assets/open0.gif" (contextmenu)="flag(col.x, col.y)" (click)="display(col.x, col.y)"/>
-
-											<img *ngIf="col.status.value == 'visible' && col.content.value == 'mine'" src="assets/bombrevealed.gif" (click)="ohh()"/>
-											
-											<img *ngIf="col.status.value == 'visible' && col.content.value == 'number'" src="assets/open{{col.number}}.gif" (click)="ohh()" /> 
-											
-											<img *ngIf="col.status.value == 'visible' && col.content.value == 'flag'" src="assets/bombflagged.gif" (click)="ohh()" (contextmenu)="flag(col.x, col.y)"/> 
-
-											<img *ngIf="col.status.value == 'visible' && col.content.value == 'death'" src="assets/bombdeath.gif" (click)="ohh()"/>
-										</a>
+										
+										<img id="sq_{{col.x}}x{{col.y}}" *ngIf="col.status.value == 'hidden'" src="assets/blank.gif" (contextmenu)="flag(col.x, col.y)" (click)="display(col.x, col.y)"/>
+										
 									</span>
 									<img src="assets/borderlr.gif" height="16" width="10" >
 								</ion-col>
