@@ -93,7 +93,16 @@ export class BoardPage implements OnInit {
 			let contextmenu = null;
 			let click = "ohh()";
 			
-			if (square.content.value == 'mine'){
+			if (square.status.value == 'flag'){
+
+				imgSrc = "assets/bombflagged.gif";
+				contextmenu = "flag("+square.x+", "+square.y+")";
+
+			}else if (square.status.value == 'hidden'){
+
+				imgSrc = "assets/blank.gif";
+
+			}else if (square.content.value == 'mine'){
 
 				imgSrc = "assets/bombrevealed.gif";
 
@@ -101,16 +110,10 @@ export class BoardPage implements OnInit {
 
 				imgSrc = "assets/open"+square.number+".gif";
 
-			}else if (square.content.value == 'flag'){
-
-				imgSrc = "assets/bombflagged.gif";
-				contextmenu = "flag("+square.x+", "+square.y+")";
-
-
 			}else if (square.content.value == 'death'){
 				imgSrc = "assets/bombdeath.gif";
 			
-			}if (square.content.value == 'empty'){
+			}else if (square.content.value == 'empty'){
 				imgSrc = "assets/open0.gif";
 			}
 			
